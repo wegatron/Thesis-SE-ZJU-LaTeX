@@ -70,4 +70,37 @@ Peter Lindstrom等人在QEM算法的启发下，将$(v_0,v_1) \to \bar{v}$的Qua
 该算法的优点是，能保证双向的Hausdorff距离在给定的误差范围内，真正做到了简化结果与原来网格之间的误差控制。而该算法的缺点也显而易见：(1)受限于内外壳不能相交这个条件，真正的$\varepsilon$不会太大，因此不能对模型做大程度的简化；(2)需要不断地做三角面片的相交检测，因此非常耗时。
 
 \section{MMGS 算法}
-从Simplification Envelopes这个算法中我们可以看到，根据用户给定的误差范围$\varepsilon$，想要鲁棒地构建一个内外壳并不那么容易，而且仅仅考虑误差，并不完全满足我们的需求。基于保证简化结果在给定的误差范围内，并且期望简化的结果尽可能光滑这两个因素，Borouchaki等人提出了MMGS算法\cite{mmgs}。该算法的主要思想是，在用户给定误差精度$\varepsilon$的条件下，通过消边的方式做模型简化，在此过程中保证简化结果和原模型之间的双向Hausdorff距离在$\varepsilon$内，并保证新生成的三角形和其周围的三角形法向基本一致(简化结果看起来比较光滑)。另外，该算法还在处理的过程中加入了翻边，和顶点移动这些模型优化方法，简化和优化迭代进行。对于模型法向的控制，与QEM算法的简化模型中法向基本一致的光滑区域的想法类似但也有所不同的是，该算法要求消除一条边PQ(将P合并到Q如图XX)之后，新生成的任意一个三角形K′的与其周围的三角形法向基本一致也即简化之后的模型尽可能光滑，K需满足:
+从Simplification Envelopes\cite{simp-envlop}这个算法中我们可以看到，根据用户给定的误差范围$\varepsilon$，想要鲁棒地构建一个内外壳并不那么容易，而且仅仅考虑误差，并不完全满足我们的需求。基于保证简化结果在给定的误差范围内，并且期望简化的结果尽可能光滑这两个因素，Borouchaki等人提出了MMGS算法\cite{mmgs}。该算法的主要思想是，在用户给定误差精度$\varepsilon$的条件下，通过消边的方式做网格简化，在此过程中通过直接计算简化结果和原网格之间的Hausdorff距离，从而保证误差在$\varepsilon$内，另外，通过加入法向的约束使得简化结果更加光滑，该算法还将在处理的过程中加入了翻边和顶点移动这些网格优化算法，简化和优化迭代进行。\par
+对于模型法向的控制，与QEM算法的简化模型中法向基本一致的光滑区域的想法类似但也有所不同的是，该算法要求消除一条边PQ（将P合并到Q如图\ref{fig:mmgs-normal-cond}）之后，新生成的任意一个三角形K′的与其周围的三角形法向基本一致也即简化之后的模型尽可能光滑，K需满足:
+\begin{equation}
+  \forall K, \quad \langle v_k (K), v(K) \rangle \ge cos(\theta)
+\end{equation}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{mmgs_normal_cond.png}
+    \caption{法向约束示意图，图来自\cite{simp-envlop}}
+    \label{fig:mmgs-normal-cond}
+\end{figure}
+这里$v_k(K)$是顶点v上的法向，$v(K)$是三角形K上的法向，$\langle ..,.. \rangle$表示点积，而$\theta$则是用户给定的一个阈值。\par
+对于Hausdorff距离的控制该算法保证新生成的三角形$K'$与原模型之间的Hausdorff距离小于$\varepsilon$，即$d_H(K',T^{ref})\le\varepsilon$，也就是说需要保证$d_H(K',\mathcal{R}(p))+d_H(\mathcal{R}(P),T^{ref}) \le \varepsilon$这里$\mathcal{R}(P)$是顶点P的一环邻域的三角形，$T^{ref}$表示原网格。对于$d_H(K',\mathcal{R}(P))$，即图中两块蓝色区域的Hausdorff距离，这可以通过简化前后拥有相同边(如图\ref{fig:mmgs-calc-haus}中红色的边)的三角形$\widetilde{K},K$之间的Hausdorff距离的最大值来近似,即
+\begin{equation}
+  d_H(K', \mathcal{R}(P)) \approx \text{max} \; d_H(K',\widetilde{K})
+\end{equation}
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{mmsg_hausdorff_calc_0.png}
+    \caption[input]{简化前}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+      \includegraphics[width=\textwidth]{mmsg_hausdorff_calc_1.png}
+      \caption[mls]{简化后}
+    \end{subfigure}
+    \caption[Result]{计算Hausdorff距离示意图}
+    \label{fig:mmgs-calc-haus}
+\end{figure}
+因此，对于每个新的生成的三角形$K'$，需要满足的Hausdorff距离条件又可以表示为：
+\begin{equation}
+  d_H(K',\mathcal{R}(P))+\underset{K\in\mathcal{R}(P)}{\text{max}}\;h(K) \le \varepsilon
+\end{equation}
+这里$h(K)$表示三角形K到原网格的Hausdorff距离的最大值。该算法主要分为以下几个步骤：
