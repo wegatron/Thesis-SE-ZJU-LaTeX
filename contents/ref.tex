@@ -8,7 +8,7 @@ QEM算法\cite{qem1}\cite{qem2}凭着其简单高效的特点是网格简化算�
 \end{equation}
 我们称$\Delta(v)$为Quadric Error在初始的情况下$\forall v,\Delta(v)=0$。在QEM算法中，我们用这个Quadric
 Error作为简化结果与原模型的距离衡量标准。当我每做一次顶点合并$(v_0, v_1) \to v̅$时，我们将这两个顶点的平面集合合并成为新的顶点的平面集合即planes(v̅) = planes(v 0 ) ∪ planes(v 1 )，从而会产生一个新的Quadric Error$\Delta(v̅)=v^T(Qv_0+Qv_1)v$。该算法以最小化Quadric Error的上界为目标，每次都是以贪心的策略从可合并的顶点对(构成一条边的两个顶点，或者两个距离小于一定阈值的顶点)中选取$\Delta(v̅)$最小的顶点对做合并。该算法实现起来非常简单，可以归纳为以下几步:
-\begin{enumerate}
+\begin{enumerate}[（1）]
   \item 初始化每个三角网格上的顶点的矩阵Q;
   \item 通过$\text{minimize} \; v̅^T(Qv_0+Qv_1)v̅$，计算每一条边的两个顶点的最优合并点$v̅$ ，以$\Delta(v̅)$作为这条边合并的代价，以此一个最小优先级队列;
   \item 迭代地从最小优先级队列中取出一个顶点对合并，然后更新这个优先级队列。
@@ -26,7 +26,7 @@ Peter Lindstrom等人在QEM算法的启发下，提出了Memoryless Simplificati
 \begin{equation}
   \Delta_1(\bar{v}) = \sum_{t_i \in \text{one\_ring}(v_0) \cup \text{one\_ring}(v_1)} \text{det} (\bar{v},v_0^{t_i},v_1^{t_i},v_2^{t_i})^2
 \end{equation}
-这里$t_i$是顶点$v_0$或顶点$v_1$一环邻域的三角形，$v_0^i,v_1^i, v_2^i$是这个三角形$t_i$上的三个顶点（如图\ref{fig:memory-less}）。该算法相当于在标准Quadric Error的基础上，将每个平面的面积作为一个权重加入到了Quadric Error的计算中去。与此同时，当存在多对顶点的Quadric Error相同时加入了尽量保持网格质量（三角形每条边尽可能相等，不出现细长三角形)的约束，让$\bar{v}$所构成的边的平方和最小，即:
+这里$t_i$是顶点$v_0$或顶点$v_1$一环邻域的三角形，$v_0^i,v_1^i, v_2^i$是这个三角形$t_i$上的三个顶点（如图\ref{fig:memory-less}）。该算法相当于在标准Quadric Error的基础上，将每个平面的面积作为一个权重加入到了Quadric Error的计算中去。与此同时，当存在多对顶点的Quadric Error相同时加入了尽量保持网格质量（三角形每条边尽可能相等，不出现细长三角形）的约束，让$\bar{v}$所构成的边的平方和最小，即:
 \begin{equation}
   \Delta_2(\bar{v}) = \sum_{v_i \in \text{one\_ring} (v_0,v_1)} (\bar{v}-v_i)^2
 \end{equation}
@@ -54,9 +54,9 @@ Peter Lindstrom等人在QEM算法的启发下，提出了Memoryless Simplificati
 
 \section{Simplification Envelopes算法}
 为了保证了输出结果在用户给定的误差范围内，Jonathan Cohen等人率先提出了一种基于内外壳的网格简化方法\cite{simp-envlop}，对于给定的最大误差$\varepsilon$，通过构建两个与原模型距离为$\varepsilon$的内外壳，并保证简化结果与内外壳的相交来保证了精度。该算法主要分为三步：
-\begin{enumerate}
-  \item 根据用户给定的误差ε，构建内外壳；
-  \item 遍历并尝试删除每一个顶
+\begin{enumerate}[（1）]
+  \item 根据用户给定的误差$\varepsilon$，构建内外壳；
+  \item 遍历并尝试删除每一个顶；
   \item 测试补洞后的网格是否在壳内，从而决定是否接受这次简化。
 \end{enumerate}
 为了保护原模型的拓扑结构，在构建内外壳时，我们需要保证内外壳既不能相交，也不能自交。为了做到这点，Jonathan Cohen等人提出了两种方案：基于分析的构建方法和基于数值的构建方法。在基于分析的构建方法（如图\ref{fig:compute-envlop0}），先为原网格的每一个三角形$t_i$，沿着每个顶点的法向构建一个上下分别$2\varepsilon$厚的棱柱$t_{p_i}$。然后判断每个棱柱$t_{p_i}$上的两个三角面片$\Delta_i$是否与其他棱柱相交，若与某一个棱柱$t_{p_j}$相交，则计算出在三角形$\Delta_i$上并处于棱柱$t_{p_j}$内的离三角形$t_j$的最近点的距离$\delta_{ij}$。做完所有这样的计算后，将对每一个三角形$t_i$的厚度设置为所有$\delta_{ij}$的最小值，即$\epsilon(t_i) = \text{min} \; \delta_{ij}$，而真正构建内外壳每个顶点沿法向移动的距离为$\epsilon(v) = \text{min} \; \epsilon(t_i)_{t_i \in  \text{one\_ring}(v)}$。而基于数值的构建方法，在刚开始时内外壳和原模型重合，给定一个沿法向移动的步长k，逐步地移动内外壳顶点直到达到给定的误差ε或者是检测到某三角形与其他非邻接三角形相交。为了得到一个更大的内外壳，在检测到相交并放弃移动内外壳一顶点时，将该顶点的步长设置为原来的$\frac{1}{2}$，继续尝试，直到该步长小于一定阈值之后再停止。当然对于每一个顶点可以选择不同的步长初始化，比如选取其一环邻域中对短的边的边长。\par
@@ -106,7 +106,7 @@ Peter Lindstrom等人在QEM算法的启发下，提出了Memoryless Simplificati
 这里$h(K)$表示三角形K到原网格的Hausdorff距离的最大值。\par
 除了在给定的Hausdorff距离内简化模型之外，与其他算法相比，在整个过程中通过翻边和移动顶点等模型优化算法，使得简化结果更加光滑（美观）如图\ref{fig:mmgs-res}。当然作为补偿，该算法相对其他简化算法有着更大的平均Hausdorff距离。同事我们可以看到，该算法是很多算法的综合体，因此复杂程度高，实现难度大，不过幸运的是我们可以在开源软件OpenFlipper中找到实现该算法的源代码。
 总的来说，该算法主要分为以下几个步骤：
-\begin{enumerate}
+\begin{enumerate}[（1）]
   \item 在满足误差和法向的约束的前提下消边
   \item 通过翻边和移动顶点优化网格
 \end{enumerate}
