@@ -3,23 +3,9 @@
 % 定义英文摘要和关键字
 
 \begin{eabstract}
-An abstract of a dissertation is a summary and extraction of research work
-and contributions. Included in an abstract should be description of research
-topic and research objective, brief introduction to methodology and research
-process, and summarization of conclusion and contributions of the
-research. An abstract should be characterized by independence and clarity and
-carry identical information with the dissertation. It should be such that the
-general idea and major contributions of the dissertation are conveyed without
-reading the dissertation.
-
-An abstract should be concise and to the point. It is a misunderstanding to
-make an abstract an outline of the dissertation and words ``the first
-chapter'', ``the second chapter'' and the like should be avoided in the
-abstract.
-
-Key words are terms used in a dissertation for indexing, reflecting core
-information of the dissertation. An abstract may contain a maximum of 5 key
-words, with semi-colons used in between to separate one another.
+  With the continuous development of industrial precision requirements continue to increase, three-dimensional scanning technology, although the performance of computer hardware has become increasingly high, but increasingly large three-dimensional model data, still allows us to save the three-dimensional model, transmission, modification, and a large number of three-dimensional model of the algorithm a lot of inconvenience. So how in the controllable accuracy range, as far as possible to find a simplified three-dimensional models to approximate the original model is a very basic and important work. Traditional mesh simplification method is mainly to eliminate the minimum cost edge or vertices according to an iterative error energy. This method is simple and efficient, but it is difficult to provide good precision control (mainly by unidirectional Hausdorff distance do precision control). And [Manish Mandad, David Cohen-Steiner 2015] By maintaining a parametric error function space, ensure that the parameters of the inner and outer boundary error permissible error of not more than one sampling point, that is, 0 isosurface (final results) will not and the allowable error within and outside the boundaries intersect, thus providing precision control bidirectional hausdorff distance.\par
+Based on [Manish Mandad, David Cohen-Steiner 2015] algorithms and improvements have been made, by the opposite sex based on refinement, optimization of the algorithm initialization state, thereby improving the efficiency of the algorithm and optimization of the results. The algorithm can be roughly divided into the following steps: (1) Based on Anisotropic refinement; (2) to simplify the space Γ boundary error; (2) 0 inlaid equivalent points; (3) simplify Isosurface 0; (4) all possible simplified. With respect to the original algorithm, anisotropic information we present in accordance with the original grid at initialization time (in different directions at one point of the grid on the same stretch lead to different error) Construction initialize the grid, not only so that we the initialization state more streamlined, reducing the grid to simplify the subsequent steps, and better reduce the error between the original mesh to obtain better results.
+Experimental results show that our algorithm is relatively original algorithm reduces the amount of calculation increases efficiency, simplify and optimize the results.
 \end{eabstract}
 
-\ekeywords{\TeX, \LaTeX, CJK, template, thesis}
+\ekeywords{Mesh simplification, tolerance volume, frame field, mesh warping, isotropic, anisotropic}

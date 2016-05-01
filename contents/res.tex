@@ -1,0 +1,66 @@
+\chapter{结果展示}
+下面我们展示我们的算法和原在一些例子上一些结果，并与原算法做一个比较，说明我们的算法的优势。我们定义误差$\delta$为该三角网格的外接球的直径的百分比。从结果中我们可以发现，我们的形变算法能够根据原网格的各项异性信息，有效地将原网格形变成为一个更趋于各项同性的网格，从而在形变之后的网格上的3D Delaunay三角化对应于原网格上则是带有其各项异性信息的三角化方法，从而优化了细化的结果，不仅减少了后序的简化操作，而且优化了简化结果。所有的实验结果均在一台CPU为Interlxxx，内存为XXX的机器上运行得到。
+
+\section{Cylinder模型}
+在一个细长的圆柱体模型（顶点数量为XX）上，我们的算法和原算法的结果对比：
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{cylinder.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+      \includegraphics[width=\textwidth]{cylinder_deformed.png}
+    \end{subfigure}
+    \caption[Cylinder形变结果]{原网格(a)和用我们的形变算法形变之后的网格(b)}
+    \label{fig:cylinder-deform}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{CYLINDER_0_0.02_0.02_0.04_100_refine.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{CYLINDER_1_0.02_0.02_0.04_100_refine.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{CYLINDER_0_0.02_0.02_0.04_100.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{CYLINDER_1_0.02_0.02_0.04_100.png}
+  \end{subfigure}
+  \caption[当$\delta=0.58\%$时Cylinder结果对比]{当$\delta=0.58\%$时，原算法的细化结果（左上图）和我们的算法的细化结果（右上图），原算法的简化结果（左下图，最终顶点数量为XX）和我们的算法的简化结果（右下图，最终顶点数量为XX）}
+  \label{fig:cylinder-res1}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{CYLINDER_0_0.01_0.005_0.02_100_refine.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{CYLINDER_1_0.01_0.005_0.02_100_refine.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{CYLINDER_0_0.01_0.005_0.02_100.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{CYLINDER_1_0.01_0.005_0.02_100.png}
+  \end{subfigure}
+  \caption[当$\delta=0.29\%$时Cylinder结果对比]{当$\delta=0.58\%$时，原算法的细化结果（左上图）和我们的算法的细化结果（右上图），原算法的简化结果（左下图，最终顶点数量为XX）和我们的算法的简化结果（右下图，最终顶点数量为XX）}
+  \label{fig:cylinder-res2}
+\end{figure}
+
+%% 原网格 - 形变之后的网格
+%% \delta=? 时的对比
+%% \delta=? 时的对比
+%% \delta=? 时时间和顶点数量列表和原来算法的对比
+
+\section{Cigar模型}
+
+\section{Banana模型}
+
+\section{Creature模型}
+
+\section{Fertility模型}

@@ -431,9 +431,9 @@ Created: 2014.09.15 by Sky and Hamburger,  Modified by Kwen String at 2016.04.08
 			申请人姓名: & \ZJUunderline[200pt]{\ZJU@author \hspace{1em}} \\[3mm]
 			%指导教师: & \ZJUunderline[200pt]{\ZJU@supervisor} \\[3mm]
 			指导教师: & \ZJUunderline[200pt]{\ZJU@supervisor \hspace{1em} \ZJU@spvtitle} \\[3mm]
-			\if@cpsupervisor
-			合作导师: & \ZJUunderline[200pt]{\ZJU@cpsupervisor \hspace{1em} \ZJU@cspvtitle} \\[3mm]
-			\fi
+			%% \if@cpsupervisor
+			%% 合作导师: & \ZJUunderline[200pt]{\ZJU@cpsupervisor \hspace{1em} \ZJU@cspvtitle} \\[3mm]
+			%% \fi
 			%专业名称: & \ZJUunderline[200pt]{\ZJU@major} \\[3mm]
 			专业学位类别: & \ZJUunderline[200pt]{\ZJU@major} \\[3mm]
 			%研究方向: & \ZJUunderline[200pt]{\ZJU@research} \\[3mm]

@@ -28,6 +28,7 @@
 然后以$\Omega$的包围球上的采样点$S_{bs}$作为初始化顶点，做一个四面体化，得到四面体网格$\tau$。在$\tau$上针对每一个四面体维护一个线性差值函数：
 \begin{equation}
   f(s) = \sum_{i=0}^3 w_iF(s_i), s\in tet(s_0, s_1, s_2, s_3), s_i \in \tau
+  \label{eq:linear-interpolation}
 \end{equation}
 这里，$tet(s_0, s_1, s_2, s_3)$是由这四个顶点所构成的四面体，$w_i$是顶点s在这个四面体上的重心坐标分量。所谓重心坐标是指对于四面体$tet(s_0, s_1, s_2, s_3)$中的一个顶点s，我们可以通过这四个点的加权来得到s的坐标值即：
 \begin{equation}
