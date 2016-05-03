@@ -36,7 +36,7 @@ Peter Lindstrom等人在QEM算法的启发下，提出了Memoryless Simplificati
     \caption{顶点合并操作示意图，边e被合并到顶点v，三角形$t_7$和$t_8$在合并的过程中被删除。第二行的三个四面体显示了合并时由三角形$t_0,t_3,t_8$与合并顶点$v$所构成的体积，图来自\cite{memory-less}}
     \label{fig:memory-less}
 \end{figure}
-此外，该算法和QEM算法的一个很大的不同点是此方法的Quadric Error以上一次的迭代结果为计算标准，而标准的QEM的Quadric Error以初始化的网格为计算标准。从而，在相同条件下此方法通过一步步的优化迭代，该算法的结果的平均误差（平均Hausdorff距离[\ref{eq:f2f-mean-haus}]）优于很多其他常用的网格简化算法，但在最大误差上逊于其他常用网格简化算法（如图\ref{fig:memory-less-compare}）。
+此外，该算法和QEM算法的一个很大的不同点是此方法的Quadric Error以上一次的迭代结果为计算标准，而标准的QEM的Quadric Error以初始化的网格为计算标准。从而，在相同条件下此方法通过一步步的优化迭代，该算法的结果的平均误差（平均Hausdorff距离——\ref{eq:f2f-mean-haus}）优于很多其他常用的网格简化算法，但在最大误差上逊于其他常用网格简化算法（如图\ref{fig:memory-less-compare}）。
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}[b]{0.7\textwidth}
@@ -59,7 +59,7 @@ Peter Lindstrom等人在QEM算法的启发下，提出了Memoryless Simplificati
   \item 遍历并尝试删除每一个顶；
   \item 测试补洞后的网格是否在壳内，从而决定是否接受这次简化。
 \end{enumerate}
-为了保护原模型的拓扑结构，在构建内外壳时，我们需要保证内外壳既不能相交，也不能自交。为了做到这点，Jonathan Cohen等人提出了两种方案：基于分析的构建方法和基于数值的构建方法。在基于分析的构建方法（如图\ref{fig:compute-envlop0}），先为原网格的每一个三角形$t_i$，沿着每个顶点的法向构建一个上下分别$2\varepsilon$厚的棱柱$t_{p_i}$。然后判断每个棱柱$t_{p_i}$上的两个三角面片$\Delta_i$是否与其他棱柱相交，若与某一个棱柱$t_{p_j}$相交，则计算出在三角形$\Delta_i$上并处于棱柱$t_{p_j}$内的离三角形$t_j$的最近点的距离$\delta_{ij}$。做完所有这样的计算后，将对每一个三角形$t_i$的厚度设置为所有$\delta_{ij}$的最小值，即$\epsilon(t_i) = \text{min} \; \delta_{ij}$，而真正构建内外壳每个顶点沿法向移动的距离为$\epsilon(v) = \text{min} \; \epsilon(t_i)_{t_i \in  \text{one\_ring}(v)}$。而基于数值的构建方法，在刚开始时内外壳和原模型重合，给定一个沿法向移动的步长k，逐步地移动内外壳顶点直到达到给定的误差ε或者是检测到某三角形与其他非邻接三角形相交。为了得到一个更大的内外壳，在检测到相交并放弃移动内外壳一顶点时，将该顶点的步长设置为原来的$\frac{1}{2}$，继续尝试，直到该步长小于一定阈值之后再停止。当然对于每一个顶点可以选择不同的步长初始化，比如选取其一环邻域中对短的边的边长。\par
+为了保护原模型的拓扑结构，在构建内外壳时，我们需要保证内外壳既不能相交，也不能自交。为了做到这点，Jonathan Cohen等人提出了两种方案：基于分析的构建方法和基于数值的构建方法。在基于分析的构建方法（如图\ref{fig:compute-envlop0}），先为原网格的每一个三角形$t_i$，沿着每个顶点的法向构建一个上下分别$2\varepsilon$厚的棱柱$t_{p_i}$。然后判断每个棱柱$t_{p_i}$上的两个三角面片$\Delta_i$是否与其他棱柱相交，若与某一个棱柱$t_{p_j}$相交，则计算出在三角形$\Delta_i$上并处于棱柱$t_{p_j}$内的离三角形$t_j$的最近点的距离$\delta_{ij}$。做完所有这样的计算后，将对每一个三角形$t_i$的厚度设置为所有$\delta_{ij}$的最小值，即$\epsilon(t_i) = \text{min} \; \delta_{ij}$，而真正构建内外壳每个顶点沿法向移动的距离为$\epsilon(v) = \text{min} \; \epsilon(t_i),t_i \in \text{one\_ring}(v)$。而基于数值的构建方法，在刚开始时内外壳和原模型重合，给定一个沿法向移动的步长k，逐步地移动内外壳顶点直到达到给定的误差ε或者是检测到某三角形与其他非邻接三角形相交。为了得到一个更大的内外壳，在检测到相交并放弃移动内外壳一顶点时，将该顶点的步长设置为原来的$\frac{1}{2}$，继续尝试，直到该步长小于一定阈值之后再停止。当然对于每一个顶点可以选择不同的步长初始化，比如选取其一环邻域中对短的边的边长。\par
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.7\textwidth]{compute_envlop_0.png}
@@ -125,4 +125,4 @@ Peter Lindstrom等人在QEM算法的启发下，提出了Memoryless Simplificati
 \end{figure}
 
 \section{本章小结}
-本章详细介绍了现有的四种网格简化算法以及它们各自的优点和不足。QEM\cite{qem1}\cite{qem2}以贪心的策略尽可能简化模型的光滑（smooth）区域，凭着其实现简单、高效、效果好的优势，成为了网格简化的主流算法。而Memoryless Simplification算法\cite{memory-less}借鉴QEM算法的思想并加以改进，将模型体积的变化作为Quadric Error，从而在更好地保持了模型体积的不变性，并考虑到了网格质量，在相同的Quadric Error时，选取网格质量更优的简化方式。但这些方法都没能够非常好的控制与原模型之间的双向Hausdorff距离。而Simplification Envelopes算法\cite{simp-envlop}通过构建一个内外壳，并在简化的过程中保证简化结果不与内外壳相交，从而严格地控制精度。该算法在网格简化算法中具有重要意义，但是仅仅考虑误差并不满足我们的要求，基于内外壳的网格简化思想以及期望网格光滑等因素的考虑，Borouchaki等人提出了MMGS网格简化算法\cite{mmgs}。与Simplification Envelope相比，MMGS在通过直接计算Hausdorff距离保证简化结果与原网格之间的误差不超过给定值$\varepsilon$，并在每次简化的迭代中加入了网格优化的算法（翻边和顶点移动），从而在损失一定的Hausdorff距离的情况下使得模型更加美观（光滑）。
+本章详细介绍了现有的四种网格简化算法以及它们各自的优点和不足。QEM\cite{qem1}\cite{qem2}以贪心的策略尽可能简化模型的平坦区域，凭着其实现简单、高效、效果好的优势，成为了网格简化的主流算法。而Memoryless Simplification算法\cite{memory-less}借鉴QEM算法的思想并加以改进，将模型体积的变化作为Quadric Error，从而在更好地保持了模型体积的不变性，并考虑到了网格质量，在相同的Quadric Error时，选取网格质量更优的简化方式。但这些方法都没能够非常好的控制与原模型之间的双向Hausdorff距离。而Simplification Envelopes算法\cite{simp-envlop}通过构建一个内外壳，并在简化的过程中保证简化结果不与内外壳相交，从而严格地控制精度。该算法在网格简化算法中具有重要意义，但是仅仅考虑误差并不满足我们的要求，基于内外壳的网格简化思想以及期望网格光滑等因素的考虑，Borouchaki等人提出了MMGS网格简化算法\cite{mmgs}。与Simplification Envelope相比，MMGS在通过直接计算Hausdorff距离保证简化结果与原网格之间的误差不超过给定值$\varepsilon$，并在每次简化的迭代中加入了网格优化的算法（翻边和顶点移动），从而在损失一定的Hausdorff距离的情况下使得模型更加美观（光滑）。

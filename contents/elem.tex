@@ -72,7 +72,7 @@
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.5\textwidth]{2d_delaunay.png}
-    \caption{2D 上的 Delaunnay 三角化示意图，引用自\cite{wiki}}
+    \caption{2D 上的 Delaunnay 三角化示意图，引用自\cite{delaunay-wiki}}
     \label{fig:2d-delaunay}
 \end{figure}
 
@@ -90,19 +90,19 @@
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.7\textwidth]{simplicial_complex_closure.png}
-    \caption{2D三角网格上的closure示意图，图引用自\cite{wiki}}
+    \caption{2D三角网格上的closure示意图，图引用自\cite{simplicial-complex}}
     \label{fig:closure}
 \end{figure}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.7\textwidth]{simplicial_complex_star.png}
-    \caption{2D三角网格上的star示意图，图引用自\cite{wiki}}
+    \caption{2D三角网格上的star示意图，图引用自\cite{simplicial-complex}}
     \label{fig:star}
 \end{figure}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.7\textwidth]{simplicial_complex_link.png}
-    \caption{2D三角网格上的link示意图，图引用自\cite{wiki}}
+    \caption{2D三角网格上的link示意图，图引用自\cite{simplicial-complex}}
     \label{fig:link}
 \end{figure}
 从而边AB上的Link Condition定义为$Lk(A) \cap Lk(B) = LK(AB)$。从Link Condition中我们可以直观地发现，对于2D空间中的一个点A其Lk(A)为顶点A的一环邻域的边界上的顶点和边，而$Lk(AB)$则是包含边AB的三角形的另一个顶点，边AB的Link Condition是否满足等价于A和B各自一环邻域的边界不能相交于一条边，否则AB合并之后该边将成为一条孤立的边(不属于任何三角形，如图\ref{fig:2d-link-cond})。类似的对于3D空间上AB的Link Condition是否满足等价于A和B各自的一环邻域的边界不能相交于一个面，否则AB合并之后该面将成为一个孤立的面(不属于任何四面体，如图\ref{fig:3d-link-cond})。
