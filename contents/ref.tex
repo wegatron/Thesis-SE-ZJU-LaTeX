@@ -17,7 +17,7 @@ QEM方法不仅简单高效，而且就算在大程度的简化要求下，简�
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.7\textwidth]{qem_res.png}
-    \caption{使用QEM算法将模型budda从1,085,634个面（a），简化到20,000个面（b-c）和1,000个面（d-e），图来自\cite{qem2}}
+    \caption[QEM算法结果]{使用QEM算法将模型budda从1,085,634个面（a），简化到20,000个面（b-c）和1,000个面（d-e），图来自\cite{qem2}}
     \label{fig:qem-res}
 \end{figure}
 
@@ -33,7 +33,7 @@ Peter Lindstrom等人在QEM算法的启发下，提出了Memoryless Simplificati
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.7\textwidth]{memory_less.png}
-    \caption{顶点合并操作示意图，边e被合并到顶点v，三角形$t_7$和$t_8$在合并的过程中被删除。第二行的三个四面体显示了合并时由三角形$t_0,t_3,t_8$与合并顶点$v$所构成的体积，图来自\cite{memory-less}}
+    \caption[顶点合并操作]{顶点合并操作示意图，边e被合并到顶点v，三角形$t_7$和$t_8$在合并的过程中被删除。第二行的三个四面体显示了合并时由三角形$t_0,t_3,t_8$与合并顶点$v$所构成的体积，图来自\cite{memory-less}}
     \label{fig:memory-less}
 \end{figure}
 此外，该算法和QEM算法的一个很大的不同点是此方法的Quadric Error以上一次的迭代结果为计算标准，而标准的QEM的Quadric Error以初始化的网格为计算标准。从而，在相同条件下此方法通过一步步的优化迭代，该算法的结果的平均误差（平均Hausdorff距离——\ref{eq:f2f-mean-haus}）优于很多其他常用的网格简化算法，但在最大误差上逊于其他常用网格简化算法（如图\ref{fig:memory-less-compare}）。
@@ -47,7 +47,7 @@ Peter Lindstrom等人在QEM算法的启发下，提出了Memoryless Simplificati
       \includegraphics[width=\textwidth]{memory_less_max_compare.png}
       \caption[mls]{最大Hausdorff距离的比较}
     \end{subfigure}
-    \caption[Result]{Memory Less算法在horse模型上和其他算法的简化结果的比较，图来自\cite{memory-less}}
+    \caption[Memory Less简化结果]{Memory Less算法在horse模型上和其他算法的简化结果的比较，图来自\cite{memory-less}}
     \label{fig:memory-less-compare}
 \end{figure}
 这两个算法都是$Min-\varepsilon$类算法，做不到严格控制与原模型之间的精度误差。
@@ -63,7 +63,7 @@ Peter Lindstrom等人在QEM算法的启发下，提出了Memoryless Simplificati
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.7\textwidth]{compute_envlop_0.png}
-    \caption{基于分析的建壳方法示意图，图来自\cite{simp-envlop}}
+    \caption[分析建壳方法]{基于分析的建壳方法示意图，图来自\cite{simp-envlop}}
     \label{fig:compute-envlop0}
 \end{figure}
 构建了内外壳之后，通过删除顶点的方式简化网格。一种简单的方式是:把每个顶点放入删除队列，然后依次送队列中取出一个顶点，尝试删除这个顶点以及其一环邻域的所有三角形，从而在原模型上产生一个洞。然后在不添加顶点的情况下，通过添加由边界点构成的三角形来补洞（有多种组合）。测试是否存在一种组合不与内外壳相交，若存在，则接受这个简化并将其邻接的顶点重新加入到队列中;若不存在，则放弃这次简化，模型保持不变。相对于尝试所有可能的补洞组合，另外一种高效的贪心补洞算法是:选取一个满足约束条件（不与内外壳相交）的三角形补上，然后递归地补上由于补上该三角形之后所产生的小的三个（或更少）的三角形。如果这种递归的补洞方法失败，则认为这个顶点删除失败即不能在保证误差的前提下通过删除这个顶点来简化网格。\par
@@ -78,7 +78,7 @@ Peter Lindstrom等人在QEM算法的启发下，提出了Memoryless Simplificati
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{mmgs_normal_cond.png}
-    \caption{法向约束示意图，图来自\cite{mmgs}}
+    \caption[法向约束]{法向约束示意图，图来自\cite{mmgs}}
     \label{fig:mmgs-normal-cond}
 \end{figure}
 这里$v_k(K)$是顶点v上的法向，$v(K)$是三角形K上的法向，$\langle ..,.. \rangle$表示点积，而$\theta$则是用户给定的一个阈值。\par
@@ -96,7 +96,7 @@ Peter Lindstrom等人在QEM算法的启发下，提出了Memoryless Simplificati
       \includegraphics[width=\textwidth]{mmsg_hausdorff_calc_1.png}
       \caption[mls]{简化后}
     \end{subfigure}
-    \caption[Result]{计算Hausdorff距离示意图}
+    \caption[MMGS计算Hausdorff距离]{计算Hausdorff距离示意图}
     \label{fig:mmgs-calc-haus}
 \end{figure}
 因此，对于每个新的生成的三角形$K'$，需要满足的Hausdorff距离条件又可以表示为：
@@ -120,7 +120,7 @@ Peter Lindstrom等人在QEM算法的启发下，提出了Memoryless Simplificati
       \includegraphics[width=\textwidth]{mmgs_res_1.png}
       \caption[mls]{简化后}
     \end{subfigure}
-    \caption[Result]{MMGS的简化结果示意图，引用自\cite{mmgs}}
+    \caption[MMGS简化结果]{MMGS的简化结果示意图，引用自\cite{mmgs}}
     \label{fig:mmgs-res}
 \end{figure}
 

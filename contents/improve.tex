@@ -25,7 +25,7 @@
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.7\textwidth]{frame_field.png}
-    \caption{Frame field示意图，图来自\cite{isotopic-appro}}
+    \caption[Frame field]{Frame field示意图，图来自\cite{isotopic-appro}}
     \label{fig:frame-field}
 \end{figure}
 在得到一个能够充分体现原网格上的各项异性信息的标架场后，参照Daniele Panozzo等人提出方法\cite{frame-field-warping}，我们通过优化标架场上的一个能量，将原标架场其变为尽可能各项同性的标架场，从而使得网格形变成为一个各项同性的网格。一个正交的标架$< u, u^\bot , −u, −u^\bot >, |u| = 1$，称为cross。我们知道对于任意的一个标架$f_p = <v, w, −v, −w >$，我们都可以在切平面$T_p S$上找到一个唯一的cross $x =<u, u^\bot , −u, −u^\bot >$和同样在该切平面上的唯一的一个线性并正定(SPD)的映射W（如图\ref{fig:frame-field}），通过它们组合表示$f_p$，$f_p = Wx = <Wu, Wu^\bot, -Wu, -Wu^\bot>$。从而，在S上的一个标架场可以唯一的分解为一个cross场$\mathcal{X}$和一个SPD张量场$\mathcal{W}$。在我们离散的三角网格上，我们将标架场离散地定义到每一个三角面片上，即每一个三角面片上均有一个标架。从而在每一个三角面片t上，我们都可以计算出一个corss $x_t$和一个由$x_t$到$f_t$映射变换$W_t$。很容易发现我们在三角面片t上的一个理想的形变是$W_t^{−1}$，这样就可以使得形变后的三角面片的local size在各个方向上都相等。然而现实中很难将所有的三角面片全部变形到最理想的状态，参照Daiele Panozzo等人的方法\cite{frame-field-warping}，并根据我们的需求——需要使得主曲率方向上的local size尽可能一致，做一个修改，我们通过优化如下能量来计算每个三角面片t上的形变雅克比$J_t$：

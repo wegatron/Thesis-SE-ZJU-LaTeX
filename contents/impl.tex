@@ -5,14 +5,14 @@
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.7\textwidth]{half-face_top_down.png}
-    \caption{从上到下的关系信息示意图，对于除顶点外任意一层的元素，都包含一个用来构成它的下一层元素的一个有序列表，这些下层元素的排列顺序，决定了这个上层元素的朝向。图来自\cite{open-volume-mesh}}
+    \caption[half-face从上到下的关系]{从上到下的关系信息示意图，对于除顶点外任意一层的元素，都包含一个用来构成它的下一层元素的一个有序列表，这些下层元素的排列顺序，决定了这个上层元素的朝向。图来自\cite{open-volume-mesh}}
     \label{fig:half-face-top-down}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.7\textwidth]{half-face_down_top.png}
-    \caption{从下到上的关系信息示意图，对于除多面体外的任意一层的元素，都包含一个需要用它来构成的更上一层的元素的有序列表。图来自\cite{open-volume-mesh}}
+    \caption[half-face从下到上的关系]{从下到上的关系信息示意图，对于除多面体外的任意一层的元素，都包含一个需要用它来构成的更上一层的元素的有序列表。图来自\cite{open-volume-mesh}}
     \label{fig:half-face-down-top}
 \end{figure}
 从上面half-face多面体网格的数据结构的描述中，我们可以看到，邻接信息的存储非常到位，对于任意一层的元素通过很少的查询，就能找到与其相邻的任意一层的元素列表，也就是说在half-face这个数据结构上信息的查询操作非常高效（比如查询一个顶点的邻接点，查询一个面的邻接多面体等等）。然而对于消边操作，由于需要维护很多的邻接关系，不仅复杂而且非常低效。\par
@@ -35,7 +35,7 @@
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\textwidth]{max_len_calc.png}
-  \caption{均匀采样时，是否需要继续细分阈值的计算示意图。}
+  \caption[均匀采样细分阈值]{均匀采样时，是否需要继续细分阈值的计算示意图。}
   \label{fig:max-len-calc}
 \end{figure}
 
@@ -51,7 +51,7 @@
       \caption{最直接的均匀采样方法无法保证以每一个采样点为圆心$\sigma$为半径的圆能够将整个三角形覆盖。该三角形左上方区域缺少采样点。}
     \label{fig:direct-sampling-1}
   \end{subfigure}
-  \caption{最直接的均匀采样的示意图}
+  \caption[最直接的采样及其问题]{最直接的均匀采样的示意图}
   \label{fig:direct-sampling}
 \end{figure}
 
@@ -72,7 +72,7 @@
       \caption{该方法的到的采样的结果，采样点在三角形的边界处明显过密。}
       \label{fig:param-sampling-1}
   \end{subfigure}
-  \caption{转换采样参数的均匀采样方法}
+  \caption[转换参数的采样方法]{转换采样参数的均匀采样方法}
   \label{fig:param-sampling}
 \end{figure}
 
@@ -82,7 +82,7 @@
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=.7\textwidth]{kr.png}
-    \caption{对于一条边AB其Kernel Region是其一环邻域的边界上的每个三角形的内侧。图中显示了一条白色的边，以及其一环邻域中的两个四面体以及其对应的有向平面（黄色以及指向内侧的箭头），其Kernel Region是这些有向平面的内侧的交集。}
+    \caption[3D Kernel Region]{对于一条边AB其Kernel Region是其一环邻域的边界上的每个三角形的内侧。图中显示了一条白色的边，以及其一环邻域中的两个四面体以及其对应的有向平面（黄色以及指向内侧的箭头），其Kernel Region是这些有向平面的内侧的交集。}
     \label{fig:kr}
 \end{figure}
 
