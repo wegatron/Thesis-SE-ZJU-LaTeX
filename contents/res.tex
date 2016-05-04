@@ -257,3 +257,26 @@
   \caption[当$\delta=0.0974\%$时fertility结果对比]{当$\delta=0.0974\%$时，原算法的细化结果（左上图）和我们的算法的细化结果（右上图），原算法的简化结果（左下图，最终顶点数量为3832）和我们的算法的简化结果（右下图，最终顶点数量为3550）}
   \label{fig:fertility-res2}
 \end{figure}
+
+\section{对比信息综合}
+\autoref{tab:compare_res}是这些模型上的对比信息的综合，从表格中我们可以看出我们的算法所消耗的时间可能会多余原算法，原因是我们通过各项异性的细化所得到的初始化状态，增大了各条边的Kernel Region，从而在整个简化过程中们需要更多次地判断候选合并点是否满足误差约束条件，以及候选合并点是否满足法向约束条件，而这两个判断我们需要求解多个线性方程，因此也恰恰是最耗时的。所以我们的算法在优化了简化结果的同时，可能会增加算法运行的时间。
+\begin{table}[htbp]
+     \centering
+     \caption{我们的算法和在各种模型上与原算法的对比}\label{tab:compare_res}
+    \begin{tabu}{lcccc} % lrr 表示 左对齐 右对齐 右对齐
+    \toprule
+    \textbf{模型/$\delta$}  & \textbf{原算法顶点数} & \textbf{现算法顶点数} & \textbf{原时间}（秒） & \textbf{现时间}（秒）\\
+    \midrule
+    cylinder/$\delta=0.58\%$     & 192  & 132 & 240 & 261 \\
+    cylinder/$\delta=0.29\%$     & 350  & 254 & 4578 & 8363\\
+    cigar/$\delta=1.06\%$        & 89 & 69 & 243 & 287 \\
+    cigar/$\delta=0.32\%$        & 296 & 268 & 9002 & 11636  \\
+    banaba/$\delta=0.5\%$        & 248 & 211 & 430 & 579 \\
+    banana/$\delta=0.25\%$       & 474 & 437 & 8637 & 8599 \\
+    creature/$\delta=0.22\%$     & 958 & 852 & 6881 & 6013 \\
+    creature/$\delta=0.11\%$     & 1911 & 1725 & 119007 & 78510 \\
+    fertility/$\delta=0.1948\%$     & 1784 & 1640 & 8314 & 4673 \\
+    fertility/$\delta=0.1948\%$     & 3832 & 3550 & 48515 & 53027 \\
+    \bottomrule
+    \end{tabu}%
+\end{table}
