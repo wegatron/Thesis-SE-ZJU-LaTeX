@@ -4,6 +4,7 @@
 \documentclass[master,oneside]{zjuthesis} % 如果你的论文不满80页，还是单面印刷吧
 \usepackage{amsmath}
 \usepackage{enumerate}
+\usepackage{float}
 \renewcommand{\theequation}{公式\thechapter.\arabic{equation}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 开始填写前置部分使用的变量
@@ -85,11 +86,11 @@
 % 正文排版开始 建议一章一文件 （好像无法嵌套 include） 
 \mainmatter
 \include{contents/intro} % 绪论
-\include{contents/ref}
+%\include{contents/ref}
 %\include{contents/whyla}
 \include{contents/elem}
 \include{contents/improve}
-\include{contents/impl}
+%\include{contents/impl}
 \include{contents/res}
 \include{contents/sum}  % 总结和展望
 

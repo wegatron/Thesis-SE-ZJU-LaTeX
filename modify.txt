@@ -1,0 +1,15 @@
+1.英文摘要需仔细修改 [done]
+
+2.网格简化已经研究了多年，有许多相关文献:Shimada K. Current issues and trends in meshing and geometric processing for computational engineering analyses [*]
+
+3.第2，3章可简化，或合并到第1章的“相关工作”中 [done]
+
+4.在1.3节“本文工作”中，要明确区分哪些是本文工作，哪些是他人工作[done]
+
+5.6.第4、5、6章可合并成一章 [done]
+
+6.考虑各向异性的三角化加入到相关工作中去，然后在考虑各向异性的地方用另一种方式去说 [done]
+
+7.整体连贯
+
+8.改进的三角化方法加图[done]
