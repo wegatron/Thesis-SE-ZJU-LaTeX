@@ -16,7 +16,7 @@
     \label{fig:half-face-down-top}
 \end{figure}
 从上面half-face多面体网格的数据结构的描述中，我们可以看到，邻接信息的存储非常到位，对于任意一层的元素通过很少的查询，就能找到与其相邻的任意一层的元素列表，也就是说在half-face这个数据结构上信息的查询操作非常高效（比如查询一个顶点的邻接点，查询一个面的邻接多面体等等）。然而对于消边操作，由于需要维护很多的邻接关系，不仅复杂而且非常低效。\par
-幸运的是，CGAL不仅给我们提供了鲁棒可靠的3D Delaunay三角化算法，而且给我们提供了一种很号的四面体网格数据结构Triangulation\_3d，其能够非常好地满足我们的需求——简单高效。在 CGAL的四面体数据结构中，包含两种最基本的数据：顶点和四面体，而边和面则通过四面体和顶点的组合来表示。对于每一个四面体，存储了该四面体的四个顶点的handle和分别与其四个面相邻接的四个四面体的handle；对于每一个顶点，存储了包含该顶点的某一个四面体的handle。通过这个简单的拓扑关系，我们就能够较为高效地查询出该四面体网格上的邻接信息，而且在做消边时也能够较为高效地维护该数据结构。
+幸运的是，CGAL不仅给我们提供了鲁棒可靠的3D Delaunay三角化算法，而且给我们提供了一种很好的四面体网格数据结构Triangulation\_3d，其能够非常好地满足我们的需求——简单高效。在 CGAL的四面体数据结构中，包含两种最基本的数据：顶点和四面体，而边和面则通过四面体和顶点的组合来表示。对于每一个四面体，存储了该四面体的四个顶点的handle和分别与其四个面相邻接的四个四面体的handle；对于每一个顶点，存储了包含该顶点的某一个四面体的handle。通过这个简单的拓扑关系，我们就能够较为高效地查询出该四面体网格上的邻接信息，而且在做消边时也能够较为高效地维护该数据结构。
 
 \section{密度为$\sigma$的均匀采样}
 对于三角形上密度为$\sigma$的均匀采样，一种简单的均匀采样方法是为三角形做一个从全局到局部的坐标变换，使得一条边在x或y轴上，然后在其包围矩形上均匀采样，并选取属于这个三角形内的采样点（如图\ref{fig:direct-sampling-0}）。但是这种方法并不鲁棒，对于有些三角形，该方法无法保证密度为$\sigma$这个条件——即以每个采样点为圆心，以$\sigma$为半径的圆能将这个三角形全部覆盖（如图\ref{fig:direct-sampling-1}）。为此，我们想出了一种更好地采样方法：我们知道对于$\triangle ABC$中的任意一个采样点s都可以表示为（如图\ref{fig:param-sampling-convert}）：
@@ -28,8 +28,8 @@
 \end{equation}
 因此，我们可以通过对$\lambda_0$和$\lambda_1$分别做密度为$\frac{\sigma}{\parallel \overrightarrow{AC} \parallel}$和$\frac{\sigma}{\parallel \overrightarrow{AB} \parallel}$的采样，从而间接得到$(\lambda_0,\lambda_1)$的采样，从而间接计算得到$\triangle ABC$上密度为$\sigma$的均匀采样。该采样算法能鲁棒地得到密度为$\sigma$的均匀采样（如图\ref{fig:param-sampling-0}）。也可以采用相同的思想在四面体内做密度为$\sigma$的均匀采样，这里不再赘述。然而这种算法也还不够完美，采样点在三角形的边界处明显过密（如图\ref{fig:param-sampling-1}）。为此，在这里使用一种基于网格细分的采样方法——对于给定的采样密度$\sigma$，我们不断遍历输入网格的每一条边，若其边长大于$\delta(\sigma)$，则我们对这条边做一个平均细分，直到所有的边的边长均小于$\delta(\sigma)$。最后我们将细分之后的三角网格上的顶点作为采样点。当$\delta(\sigma)=2\sigma/\sqrt{3}$即每一个三角形的每条边长都小于$2\sigma/\sqrt{3}$时，每一个三角形的外接圆半径小于$\sigma$，从而任一一个三角形的三个顶点上半径为$\sigma$的圆能将该三角形覆盖，从而满足采样密度要求。证明如下：设任一三角形上的最大边e的长为$x$，最大边对应的外接圆圆心角为$\alpha = 2\theta$（如图\ref{fig:max-len-calc}），则我们有
 \begin{equation}
-  \frac{x}{2r} = sin\theta, \theta \in [\pi/3, \pi/2] \qquad
-  \Rightarrow \qquad r =\frac{x}{2} * \frac{1}{sin \theta} \leq \frac{x}{2} * \sqrt{3}
+  \frac{x}{2r} = \sin\theta, \theta \in [\pi/3, \pi/2] \qquad
+  \Rightarrow \qquad r =\frac{x}{2} * \frac{1}{\sin \theta} \leq \frac{x}{2} * \sqrt{3}
 \end{equation}
 
 \begin{figure}[htbp]
